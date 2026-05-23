@@ -1,64 +1,135 @@
 # Aibys Legal Analyzer
 
-Aibys Legal Analyzer helps you understand legal documents faster.
+AI-powered legal document analyzer. Upload contracts, NDAs, MoUs, agreements, terms, or other legal documents, then get plain-language summaries, risky clause highlights, missing terms, questions to ask, and a document risk score.
 
-Upload a contract, NDA, MoU, agreement, terms, or another legal document. The app summarizes each section, highlights risky clauses, explains them in plain language, and gives an overall risk score.
-
-Runs locally with Ollama. No cloud AI API required.
+Part of the **Aibys Document Intelligence** series.
 
 > This tool is for informational purposes only and does not provide legal advice.
 
 ## Features
 
-- Upload one or more PDF or TXT documents
-- Extract PDF text with PyMuPDF
-- Analyze documents with a local Ollama model
-- Save original uploads in `uploads/`
-- Append full history to `data/analyses.json`
-- Append flattened rows to `data/analyses.csv`
-- Save per-document Markdown reports in `reports/`
-- Load saved history when the app starts
-- Export full JSON history, combined CSV, and individual Markdown reports
-- Responsive vanilla HTML/CSS/JS interface
+- Upload multiple PDF or TXT files in one batch
+- PDF text extraction with PyMuPDF
+- AI analyzes legal documents with Ollama
+- Overall document summary and risk score
+- Section-by-section summaries
+- Risk classification: `low`, `medium`, or `high`
+- Risky clause highlights with plain-language explanations
+- Missing or unclear terms list
+- Suggested questions to ask a lawyer or contract counterparty
+- Structured result view with saved analysis history
+- Raw JSON output for each record
+- Persistent local storage using plain files, no SQL database
+- CSV is appended to the same `data/analyses.csv` file across sessions and days
+- Markdown report is generated for each analyzed document
+- Download saved CSV, JSON history, or individual Markdown reports from the UI
+- Runs locally with Ollama
+- Responsive UI with no frontend build step
 
-## Setup
+## How It Works
 
-1. Install Python dependencies:
+1. Upload one or many legal documents.
+2. FastAPI validates each file and stores the original upload in `uploads/`.
+3. PDF files are extracted into text with PyMuPDF.
+4. Extracted text is sent to Ollama with a structured legal analysis prompt.
+5. Full analysis records are saved into `data/analyses.json`.
+6. Flattened summary rows are appended into `data/analyses.csv`.
+7. A readable Markdown report is saved into `reports/`.
+8. The UI renders the latest batch and the saved history.
 
-```bash
-pip install -r requirements.txt
-```
+## Quick Start
 
-2. Start Ollama and make sure a model is available:
+### Prerequisites
+
+- Python 3.10+
+- [Ollama](https://ollama.ai) running locally
+- An Ollama model, for example:
 
 ```bash
 ollama pull gemma4:31b-cloud
-ollama serve
 ```
 
-3. Run the app:
+### Install & Run
 
 ```bash
+git clone https://github.com/Arlchoose-code/aibys-legal-analyzer.git
+cd aibys-legal-analyzer
+pip install -r requirements.txt
 uvicorn main:app --reload
 ```
 
-4. Open `http://127.0.0.1:8000`.
+Open:
+
+```text
+http://localhost:8000
+```
 
 ## Configuration
 
-Environment variables:
+Set environment variables as needed:
 
-- `OLLAMA_URL`: defaults to `http://localhost:11434`
-- `OLLAMA_MODEL`: defaults to `gemma4:31b-cloud`
-- `MAX_ANALYSIS_CHARS`: defaults to `30000`
+```bash
+OLLAMA_URL=http://localhost:11434
+OLLAMA_MODEL=gemma4:31b-cloud
+MAX_ANALYSIS_CHARS=30000
+```
 
-## Storage
+## Local Data Files
 
-The app keeps local workspace files:
+The app creates these files and folders automatically:
 
-- `uploads/`: original uploaded documents
-- `data/analyses.json`: full saved analysis history
-- `data/analyses.csv`: flattened export rows
-- `reports/`: readable Markdown reports
+| Path | Purpose |
+|---|---|
+| `uploads/` | Original uploaded files |
+| `data/analyses.json` | Full structured analysis history |
+| `data/analyses.csv` | Append-only CSV export for spreadsheet use |
+| `reports/` | Individual Markdown reports |
 
-These files survive app restarts and can be used across different days.
+This project intentionally uses JSON, CSV, and Markdown files instead of SQL so it stays simple and portable.
+
+## API
+
+| Method | Endpoint | Description |
+|---|---|---|
+| `GET` | `/` | Web UI |
+| `GET` | `/api/history` | Return saved JSON analysis records |
+| `POST` | `/api/analyze` | Analyze one or more files using multipart field `files` |
+| `GET` | `/api/export/json` | Download saved JSON history |
+| `GET` | `/api/export/csv` | Download combined CSV report |
+| `GET` | `/api/reports/{filename}` | Download an individual Markdown report |
+
+## Tech Stack
+
+- **Backend:** FastAPI + Python
+- **AI:** Ollama
+- **PDF Processing:** PyMuPDF
+- **Storage:** JSON + CSV + Markdown files
+- **Frontend:** Vanilla HTML/CSS/JS
+
+## Analyzed Fields
+
+| Category | Fields |
+|---|---|
+| Document Info | Document type, title, source file, created date |
+| Parties | Party names and roles |
+| Summary | Overall summary and section summaries |
+| Risk | Risk score, risk level, risky clauses |
+| Clauses | Clause text, why it matters, plain-language explanation, suggested action |
+| Review Prep | Red flags, missing or unclear terms, questions to ask |
+
+## Aibys Document Intelligence Series
+
+| Repo | Description |
+|---|---|
+| Aibys Invoice Extractor | Extract invoice and receipt data |
+| **Aibys Legal Analyzer** | Highlight risky clauses in contracts |
+| Aibys Medical Explainer | Explain medical reports in plain language |
+| Aibys Research Summarizer | Summarize academic papers |
+
+## Author
+
+**Syahril Haryono** - [github.com/Arlchoose-code](https://github.com/Arlchoose-code)
+
+## License
+
+MIT License
