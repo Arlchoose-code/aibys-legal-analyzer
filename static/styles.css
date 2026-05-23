@@ -1,0 +1,427 @@
+:root {
+  --bg: #111418;
+  --panel: #191e25;
+  --panel-2: #20262f;
+  --line: #303946;
+  --text: #eef2f6;
+  --muted: #9faabb;
+  --accent: #42c2a7;
+  --accent-strong: #22a184;
+  --danger: #ef5b5b;
+  --warning: #e7b84c;
+  --success: #56c271;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.app-shell {
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 28px 0 48px;
+}
+
+.topbar,
+.workspace,
+.metrics,
+.result-grid {
+  display: grid;
+  gap: 16px;
+}
+
+.topbar {
+  grid-template-columns: 1fr auto;
+  align-items: end;
+}
+
+.eyebrow,
+.doc-type {
+  margin: 0 0 6px;
+  color: var(--accent);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  margin-bottom: 8px;
+  font-size: clamp(2rem, 4vw, 3.6rem);
+  letter-spacing: 0;
+}
+
+h2 {
+  margin-bottom: 0;
+  font-size: 1.05rem;
+}
+
+h3 {
+  margin-bottom: 6px;
+  font-size: 1.15rem;
+}
+
+.disclaimer,
+.source,
+.metric span,
+.panel-heading span,
+.drop-copy {
+  color: var(--muted);
+}
+
+.export-actions,
+.action-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.button {
+  display: inline-flex;
+  min-height: 42px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 0 16px;
+  color: var(--text);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.primary {
+  border-color: var(--accent-strong);
+  background: var(--accent-strong);
+}
+
+.secondary,
+.ghost {
+  background: var(--panel-2);
+}
+
+.ghost {
+  color: var(--muted);
+}
+
+.metrics {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 24px 0;
+}
+
+.metric,
+.upload-panel,
+.history-panel,
+.results,
+.analysis-card {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+}
+
+.metric {
+  padding: 18px;
+}
+
+.metric strong {
+  display: block;
+  margin-top: 8px;
+  font-size: 2rem;
+}
+
+.metric.high strong {
+  color: var(--danger);
+}
+
+.workspace {
+  grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.8fr);
+}
+
+.upload-panel,
+.history-panel,
+.results {
+  padding: 18px;
+}
+
+.panel-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.upload-form {
+  display: grid;
+  gap: 14px;
+}
+
+.dropzone {
+  display: grid;
+  min-height: 156px;
+  place-content: center;
+  gap: 8px;
+  border: 1px dashed #526070;
+  border-radius: 8px;
+  background: #151a20;
+  text-align: center;
+  cursor: pointer;
+}
+
+.dropzone input {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  opacity: 0;
+}
+
+.drop-title {
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+
+.loading {
+  margin-top: 16px;
+}
+
+.progress {
+  overflow: hidden;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--panel-2);
+}
+
+.progress span {
+  display: block;
+  width: 42%;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--accent);
+  animation: progress 1.2s ease-in-out infinite;
+}
+
+@keyframes progress {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(240%);
+  }
+}
+
+.notice {
+  margin-top: 14px;
+  border-radius: 6px;
+  padding: 12px;
+}
+
+.error {
+  border: 1px solid rgba(239, 91, 91, 0.45);
+  background: rgba(239, 91, 91, 0.12);
+}
+
+.success {
+  border: 1px solid rgba(86, 194, 113, 0.45);
+  background: rgba(86, 194, 113, 0.12);
+}
+
+.history-list {
+  display: grid;
+  max-height: 420px;
+  gap: 10px;
+  overflow: auto;
+}
+
+.history-item {
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 12px;
+  background: var(--panel-2);
+  cursor: pointer;
+}
+
+.history-item strong {
+  display: block;
+  overflow-wrap: anywhere;
+}
+
+.history-item span {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.results {
+  margin-top: 24px;
+}
+
+.result-grid {
+  grid-template-columns: 1fr;
+}
+
+.empty-state {
+  color: var(--muted);
+}
+
+.analysis-card {
+  padding: 18px;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.card-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 14px;
+}
+
+.card-head > *,
+.analysis-sections,
+.lists,
+.section-card,
+.list-block {
+  min-width: 0;
+}
+
+.score-block {
+  min-width: 104px;
+  text-align: right;
+}
+
+.score-block strong {
+  display: block;
+  font-size: 2rem;
+}
+
+.risk-badge {
+  display: inline-flex;
+  border-radius: 999px;
+  padding: 5px 10px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.risk-low {
+  background: rgba(86, 194, 113, 0.16);
+  color: var(--success);
+}
+
+.risk-medium {
+  background: rgba(231, 184, 76, 0.16);
+  color: var(--warning);
+}
+
+.risk-high {
+  background: rgba(239, 91, 91, 0.16);
+  color: var(--danger);
+}
+
+.summary {
+  color: #d9e0e8;
+  line-height: 1.55;
+}
+
+.section-card,
+.list-block {
+  margin-top: 14px;
+  border-top: 1px solid var(--line);
+  padding-top: 14px;
+}
+
+.section-card h4,
+.list-block h4 {
+  margin: 0 0 8px;
+}
+
+ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+li {
+  margin: 6px 0;
+}
+
+.clause {
+  margin-top: 10px;
+  border-left: 3px solid var(--warning);
+  padding-left: 12px;
+  color: #d9e0e8;
+}
+
+.raw-json {
+  max-width: 100%;
+  overflow: auto;
+  margin: 14px 0 0;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 12px;
+  background: #0c0f13;
+  color: #dce6f0;
+  font-size: 0.85rem;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.hidden {
+  display: none !important;
+}
+
+@media (max-width: 820px) {
+  .topbar,
+  .workspace,
+  .metrics,
+  .card-head {
+    grid-template-columns: 1fr;
+  }
+
+  .score-block {
+    text-align: left;
+  }
+}
+
+@media (max-width: 560px) {
+  .app-shell {
+    width: min(100% - 20px, 1180px);
+    padding-top: 18px;
+  }
+
+  .metrics {
+    gap: 10px;
+  }
+
+  .button,
+  .export-actions a,
+  .action-row > * {
+    width: 100%;
+  }
+
+  .panel-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

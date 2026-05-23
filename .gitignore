@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+.venv/
+venv/
+env/
+ENV/
+
+# Local environment
+.env
+.env.*
+!.env.example
+
+# App-generated local workspace data
+uploads/*
+reports/*
+data/*
+
+# Keep generated-data folders in the repository
+!uploads/.gitkeep
+!reports/.gitkeep
+!data/.gitkeep
+
+# Logs and temporary files
+*.log
+*.tmp
+*.temp
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

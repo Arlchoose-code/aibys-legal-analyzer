@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Aibys Legal Analyzer</title>
+    <link rel="stylesheet" href="/static/styles.css">
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="topbar">
+        <div>
+          <p class="eyebrow">Aibys Document Intelligence</p>
+          <h1>Aibys Legal Analyzer</h1>
+          <p class="disclaimer">This tool is for informational purposes only and does not provide legal advice.</p>
+        </div>
+        <div class="export-actions">
+          <a class="button secondary" href="/api/export/json" download title="Download full JSON history">Download JSON history</a>
+          <a class="button secondary" href="/api/export/csv" download title="Download combined CSV report">Download CSV report</a>
+        </div>
+      </section>
+
+      <section class="metrics" aria-label="Risk dashboard">
+        <div class="metric">
+          <span>Total documents</span>
+          <strong id="metricTotal">0</strong>
+        </div>
+        <div class="metric">
+          <span>Average risk</span>
+          <strong id="metricAverage">0</strong>
+        </div>
+        <div class="metric high">
+          <span>High risk</span>
+          <strong id="metricHigh">0</strong>
+        </div>
+      </section>
+
+      <section class="workspace">
+        <div class="upload-panel">
+          <div class="panel-heading">
+            <h2>Analyze Documents</h2>
+            <span id="fileCount">No files selected</span>
+          </div>
+          <form id="uploadForm" class="upload-form">
+            <label class="dropzone" for="fileInput">
+              <input id="fileInput" name="files" type="file" accept=".pdf,.txt" multiple>
+              <span class="drop-title">Choose PDF or TXT files</span>
+              <span class="drop-copy">Multiple files are supported in one batch.</span>
+            </label>
+            <button id="analyzeButton" class="button primary" type="submit">Analyze batch</button>
+          </form>
+
+          <div id="loadingState" class="loading hidden" role="status" aria-live="polite">
+            <div class="progress"><span></span></div>
+            <p id="loadingText">Extracting document text...</p>
+          </div>
+
+          <div id="errorBox" class="notice error hidden"></div>
+          <div id="successBox" class="notice success hidden"></div>
+        </div>
+
+        <aside class="history-panel">
+          <div class="panel-heading">
+            <h2>Saved History</h2>
+            <span id="historyCount">0 records</span>
+          </div>
+          <div id="historyList" class="history-list"></div>
+        </aside>
+      </section>
+
+      <section class="results">
+        <div class="panel-heading">
+          <h2>Latest Batch Results</h2>
+        </div>
+        <div id="latestResults" class="result-grid empty-state">Upload documents to generate risk analysis.</div>
+      </section>
+    </main>
+
+    <template id="analysisCardTemplate">
+      <article class="analysis-card">
+        <div class="card-head">
+          <div>
+            <p class="doc-type"></p>
+            <h3></h3>
+            <p class="source"></p>
+          </div>
+          <div class="score-block">
+            <strong></strong>
+            <span class="risk-badge"></span>
+          </div>
+        </div>
+        <p class="summary"></p>
+        <div class="action-row">
+          <a class="button secondary report-link" download title="Download Markdown report">Download Markdown report</a>
+          <button class="button ghost raw-toggle" type="button">Raw JSON</button>
+        </div>
+        <div class="analysis-sections"></div>
+        <div class="lists"></div>
+        <pre class="raw-json hidden"></pre>
+      </article>
+    </template>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>
