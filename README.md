@@ -1,7 +1,7 @@
 # Aibys Legal Analyzer
 
-<img width="1920" height="1080" alt="Screenshot (1093)" src="https://github.com/user-attachments/assets/238e8134-b1aa-4805-9211-655f5cb9d564" />
 <img width="1920" height="1080" alt="Screenshot (1092)" src="https://github.com/user-attachments/assets/f3d1f252-156f-4676-b84b-b6aa301945f1" />
+<img width="1920" height="1080" alt="Screenshot (1093)" src="https://github.com/user-attachments/assets/238e8134-b1aa-4805-9211-655f5cb9d564" />
 
 
 AI-powered legal document analyzer. Upload contracts, NDAs, MoUs, agreements, terms, or other legal documents, then get plain-language summaries, risky clause highlights, missing terms, questions to ask, and a document risk score.
